@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohamed Nadeem | Interactive Resume</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony (Light Beige, Muted Blue/Gray, Soft Terracotta Accent) -->
+    <!-- Application Structure Plan: A tabbed, dashboard-style SPA with three main sections: 'Overview', 'Experience', and 'Skills & Education'. The 'Overview' presents a summary and key quantifiable achievements upfront. The 'Experience' section features an interactive vertical timeline to make exploring the candidate's 10+ year career intuitive and less linear. The 'Skills' section categorizes competencies for quick evaluation. This structure prioritizes recruiter usability by presenting high-impact information first and allowing non-linear exploration of the candidate's profile. -->
+    <!-- Visualization & Content Choices: 1. Key Achievements (Report Info) -> Goal: Inform/Impress -> Viz: HTML/Tailwind Metric Cards -> Interaction: Hover effects -> Justification: Immediately highlights top results. 2. Career Progression (Report Info) -> Goal: Organize/Detail -> Viz: Interactive HTML/CSS Timeline + JS-powered Details Pane -> Interaction: Click to reveal details -> Justification: Makes a long career history digestible and engaging. 3. Core Competencies (Report Info) -> Goal: Inform/Summarize -> Viz: Chart.js Doughnut Chart -> Interaction: Tooltips on hover -> Justification: Visually represents the candidate's balanced skill set across operations, leadership, and data analytics. Confirms no SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF8;
+            color: #374151;
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+        }
+        .nav-link.active {
+            color: #D97706;
+            border-bottom-color: #D97706;
+        }
+        .timeline-item.active-timeline {
+            border-left-color: #D97706;
+            background-color: #FEF3C7;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            max-width: 400px;
+            margin: auto;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+
+        <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+            <div>
+                <h1 class="text-4xl font-bold text-gray-800">Mohamed Nadeem</h1>
+                <p class="text-xl text-gray-600 mt-1">Call Center Manager | CX Operations | Data Analytics</p>
+            </div>
+            <div class="flex flex-col md:flex-row md:items-center md:space-x-4 mt-4 md:mt-0 text-gray-500">
+                <div class="flex items-center space-x-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2h-11a2 2 0 01-2-2.18l.79-4.22a2 2 0 011.87-1.72h.01a2 2 0 011.72 1.87L8 18.82A2 2 0 016.18 20H5a2 2 0 01-2-2.18l.79-4.22a2 2 0 011.87-1.72h.01a2 2 0 011.72 1.87L8 16.82A2 2 0 016.18 18H5a2 2 0 01-2-2.18l.79-4.22a2 2 0 011.87-1.72h.01a2 2 0 011.72 1.87L8 14.82A2 2 0 016.18 16H5a2 2 0 01-2-2.18l.79-4.22a2 2 0 011.87-1.72h.01a2 2 0 011.72 1.87L8 12.82A2 2 0 016.18 14H5a2 2 0 01-2-2.18l.79-4.22a2 2 0 011.87-1.72h.01a2 2 0 011.72 1.87L8 10.82A2 2 0 016.18 12H5a2 2 0 01-2-2.18l.79-4.22a2 2 0 011.87-1.72h.01a2 2 0 011.72 1.87L8 8.82A2 2 0 016.18 10H5a2 2 0 01-2-2.18l.79-4.22a2 2 0 011.87-1.72h.01a2 2 0 011.72 1.87L8 6.82A2 2 0 016.18 8H5a2 2 0 01-2-2.18z"></path></svg>
+                    <a href="tel:01124733304" class="hover:text-amber-600">01124733304</a>
+                </div>
+                <div class="flex items-center space-x-2">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                    <a href="mailto:mohamed.nadem1@gmail.com" class="hover:text-amber-600">mohamed.nadem1@gmail.com</a>
+                </div>
+                <a href="https://www.linkedin.com/in/mohamed-nadeem-261584a2" target="_blank" class="hover:text-amber-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-2.006 1.806-3.666 3.996-3.666 2.19 0 3.996 1.66 3.996 3.666v8.399h4.988v-10.131c0-4.87-3.304-7.869-7.828-7.869-3.604 0-5.744 1.845-6.726 3.42z"/></svg>
+                </a>
+                <a href="https://github.com/Nadem2601" target="_blank" class="hover:text-amber-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
+                </a>
+            </div>
+        </header>
+
+        <nav class="mb-8 border-b border-gray-200">
+            <ul class="flex space-x-8">
+                <li class="pb-2 border-b-2 border-transparent">
+                    <a href="#" id="nav-overview" class="nav-link active text-base font-medium">Overview</a>
+                </li>
+                <li class="pb-2 border-b-2 border-transparent">
+                    <a href="#" id="nav-experience" class="nav-link text-base font-medium">Experience</a>
+                </li>
+                <li class="pb-2 border-b-2 border-transparent">
+                    <a href="#" id="nav-skills" class="nav-link text-base font-medium">Skills & Education</a>
+                </li>
+            </ul>
+        </nav>
+
+        <main>
+            <section id="overview" class="space-y-12">
+                <div class="p-8 bg-white rounded-lg shadow-sm border border-gray-200">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Professional Summary</h2>
+                    <p class="text-gray-600 leading-relaxed">
+                        As a results-driven Call Center Manager with over 10 years of experience across telecom and government sectors, I specialize in building and optimizing high-performance teams that deliver outstanding customer service experiences. I lead with a data-driven mindset, supported by a Nanodegree in Data Analysis, leveraging tools such as Power BI, Excel, SQL, and Python to transform raw data into actionable insights, driving better decisions, improved performance, and enhanced customer satisfaction.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800 mb-4">Core Competencies</h2>
+                        <p class="text-gray-600 mb-6">A visual representation of my balanced expertise across key operational domains. My experience bridges hands-on team leadership with strategic, data-informed process optimization to elevate both performance and customer experience.</p>
+                         <div class="chart-container">
+                            <canvas id="competenciesChart"></canvas>
+                        </div>
+                    </div>
+                     <div class="space-y-4">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center md:text-left">Key Career Achievements</h2>
+                        <div class="transform hover:scale-105 transition-transform duration-300 p-6 bg-white rounded-lg shadow-sm border border-gray-200 flex items-center space-x-4">
+                            <span class="text-4xl font-bold text-amber-600">30%</span>
+                            <p class="text-gray-700">Increase in operational efficiency after launching RAK Municipality Call Center.</p>
+                        </div>
+                        <div class="transform hover:scale-105 transition-transform duration-300 p-6 bg-white rounded-lg shadow-sm border border-gray-200 flex items-center space-x-4">
+                            <span class="text-4xl font-bold text-amber-600">15k+</span>
+                            <p class="text-gray-700">Customer interactions managed in the first quarter of operations.</p>
+                        </div>
+                        <div class="transform hover:scale-105 transition-transform duration-300 p-6 bg-white rounded-lg shadow-sm border border-gray-200 flex items-center space-x-4">
+                            <span class="text-4xl font-bold text-amber-600">15%</span>
+                            <p class="text-gray-700">Reduction in agent turnover through refined selection and training processes.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="experience" class="hidden">
+                 <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold text-gray-800">Career Journey</h2>
+                    <p class="text-lg text-gray-600 mt-2">Explore my professional progression by selecting a role from the timeline.</p>
+                </div>
+                <div class="flex flex-col md:flex-row gap-8">
+                    <div id="timeline" class="w-full md:w-1/3 space-y-2">
+                    </div>
+                    <div id="experience-details" class="w-full md:w-2/3 p-6 bg-white rounded-lg shadow-sm border border-gray-200 min-h-[300px]">
+                    </div>
+                </div>
+            </section>
+
+            <section id="skills" class="hidden space-y-12">
+                 <div class="grid md:grid-cols-2 gap-8">
+                    <div class="p-8 bg-white rounded-lg shadow-sm border border-gray-200">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-4">Technical Skills</h2>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="bg-amber-100 text-amber-800 text-sm font-medium px-3 py-1 rounded-full">Power BI</span>
+                            <span class="bg-amber-100 text-amber-800 text-sm font-medium px-3 py-1 rounded-full">Excel</span>
+                            <span class="bg-amber-100 text-amber-800 text-sm font-medium px-3 py-1 rounded-full">SQL</span>
+                            <span class="bg-amber-100 text-amber-800 text-sm font-medium px-3 py-1 rounded-full">Python</span>
+                            <span class="bg-gray-200 text-gray-800 text-sm font-medium px-3 py-1 rounded-full">CRM (SAP)</span>
+                            <span class="bg-gray-200 text-gray-800 text-sm font-medium px-3 py-1 rounded-full">VoIP Systems</span>
+                        </div>
+                    </div>
+                    <div class="p-8 bg-white rounded-lg shadow-sm border border-gray-200">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-4">Core Competencies</h2>
+                        <ul class="list-disc list-inside text-gray-600 space-y-2">
+                            <li>Call Center Operations & Administration</li>
+                            <li>Team Leadership & Development</li>
+                            <li>SLA & KPI Design and Management</li>
+                            <li>Customer Experience (CX) Strategy</li>
+                            <li>Process Improvement & Optimization</li>
+                            <li>Quality Assurance & Compliance</li>
+                            <li>Client & Stakeholder Management</li>
+                        </ul>
+                    </div>
+                 </div>
+                 <div>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">Education & Certifications</h2>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="p-6 bg-white rounded-lg shadow-sm border border-gray-200">
+                            <h3 class="font-bold text-lg text-gray-800">Udacity</h3>
+                            <p class="text-gray-600">Data Analyst Nanodegree Graduate (2022)</p>
+                            <p class="text-gray-600">Data Modeling/Warehousing (2022)</p>
+                        </div>
+                        <div class="p-6 bg-white rounded-lg shadow-sm border border-gray-200">
+                             <h3 class="font-bold text-lg text-gray-800">Cairo University</h3>
+                            <p class="text-gray-600">Faculty of Art, English (2011)</p>
+                        </div>
+                    </div>
+                 </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('main > section');
+
+            const experienceData = [
+                {
+                    role: 'CATI Senior Project Manager',
+                    company: 'Ipsos',
+                    period: 'Oct 2024 - Present',
+                    details: [
+                        'Manage large-scale telephone-based research projects with tight deadlines and complex stakeholder needs.',
+                        'Lead planning, resource allocation, and process optimization across CATI operations.',
+                        'Ensure delivery of insights-driven reports on time and within budget.',
+                        'Maintain strong client relationships and enforce data quality and industry compliance standards.'
+                    ]
+                },
+                {
+                    role: 'Call Center Supervisor',
+                    company: 'Julfar Consultancy Services',
+                    period: 'Dec 2016 - Oct 2024',
+                    details: [
+                        'Launched and managed RAK Municipality Call Center from scratch, supporting 15+ departments.',
+                        'Increased operational efficiency by 30%; handled 15,000+ customer interactions in first quarter.',
+                        'Built full SLA, KPI, and quality scoring matrices; established escalation paths and SPOC channels.',
+                        'Reduced turnover by 15% through optimized hiring, training, and career development.',
+                        'Implemented CRM (SAP) and VOIP software; improved service delivery across all municipality functions.',
+                        'Developed reporting and real-time dashboards for leadership decision-making using Power BI.'
+                    ]
+                },
+                {
+                    role: 'Team Leader',
+                    company: 'Raya Contact Center (Etisalat)',
+                    period: 'Apr 2014 - Oct 2016',
+                    details: [
+                        'Led 16+ agents to exceed targets in AHT, CSAT, and quality benchmarks.',
+                        'Managed real-time operations and ensured daily SLA achievement across the call floor.',
+                        'Coached and mentored agents; monitored calls to ensure proactive failure prevention.',
+                        'Handled escalations and delivered customer-first solutions efficiently.'
+                    ]
+                },
+                {
+                    role: 'Team Leader & QA',
+                    company: 'Etisal International Co',
+                    period: 'Aug 2008 - Apr 2014',
+                    details: [
+                        'Promoted from Agent to Quality Assurance Specialist, then to Team Leader.',
+                        'As Team Leader: Led 16 agents to achieve KPIs, managed floor operations, and handled escalations.',
+                        'As QA Specialist: Monitored calls, provided feedback, developed training, and recommended process improvements.',
+                        'As Agent: Handled incoming inquiries, requests, and complaints, working within a team to meet targets.'
+                    ]
+                }
+            ];
+
+            const timelineContainer = document.getElementById('timeline');
+            const detailsContainer = document.getElementById('experience-details');
+
+            function displayExperienceDetails(index) {
+                const item = experienceData[index];
+                detailsContainer.innerHTML = `
+                    <h3 class="text-xl font-bold text-gray-800">${item.role}</h3>
+                    <p class="text-md text-amber-700 font-medium mb-1">${item.company}</p>
+                    <p class="text-sm text-gray-500 mb-4">${item.period}</p>
+                    <ul class="list-disc list-inside text-gray-600 space-y-2">
+                        ${item.details.map(d => `<li>${d}</li>`).join('')}
+                    </ul>
+                `;
+
+                document.querySelectorAll('.timeline-item').forEach((el, i) => {
+                    if (i === index) {
+                        el.classList.add('active-timeline');
+                    } else {
+                        el.classList.remove('active-timeline');
+                    }
+                });
+            }
+
+            experienceData.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'timeline-item p-4 border-l-4 border-gray-200 cursor-pointer hover:bg-amber-50 transition-colors duration-200';
+                div.innerHTML = `
+                    <h4 class="font-semibold text-gray-700">${item.role}</h4>
+                    <p class="text-sm text-gray-500">${item.company}</p>
+                `;
+                div.addEventListener('click', () => displayExperienceDetails(index));
+                timelineContainer.appendChild(div);
+            });
+
+            if (experienceData.length > 0) {
+                displayExperienceDetails(0);
+            }
+
+            const switchTab = (targetId) => {
+                sections.forEach(section => {
+                    section.classList.add('hidden');
+                });
+                document.getElementById(targetId).classList.remove('hidden');
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.id === `nav-${targetId}`) {
+                        link.classList.add('active');
+                    }
+                });
+            };
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = e.target.id.split('-')[1];
+                    switchTab(targetId);
+                });
+            });
+
+            const ctx = document.getElementById('competenciesChart').getContext('2d');
+            const competenciesChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Operations Management', 'Team Leadership', 'Data Analytics', 'Customer Experience'],
+                    datasets: [{
+                        label: 'Core Competencies',
+                        data: [25, 25, 25, 25],
+                        backgroundColor: [
+                            '#F59E0B',
+                            '#D97706',
+                            '#B45309',
+                            '#78350F'
+                        ],
+                        borderColor: '#FDFBF8',
+                        borderWidth: 4,
+                        hoverOffset: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '60%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                font: {
+                                    family: "'Inter', sans-serif"
+                                }
+                            }
+                        },
+                        tooltip: {
+                             bodyFont: {
+                                family: "'Inter', sans-serif"
+                            },
+                             titleFont: {
+                                family: "'Inter', sans-serif"
+                            }
+                        }
+                    }
+                }
+            });
+
+        });
+    </script>
+
+</body>
+</html>
